@@ -1,12 +1,14 @@
 from flask import Flask, render_template
 from datetime import datetime, date, timedelta
+from zoneinfo import ZoneInfo
+import pytz
 
 app = Flask(__name__)
 
 @app.route('/')
 def home():
 
-    start_day = date.today() + timedelta(days=1)
+    start_day = date(2025,9,9)
     today = date.today()
 
     days_passed = (today - start_day).days
@@ -20,7 +22,7 @@ def home():
     else:
         message = "😴 Water will not come today, relax!"
 
-    now = datetime.now().strftime("%A, %d %B %Y %I:%M %p")
+    now = datetime.now(pytz.timezone("Asia/Kolkata")).strftime("%A, %d %B %Y %I:%M %p")
     return render_template("index.html", now=now, message=message)
 
 if(__name__) == "__main__":
