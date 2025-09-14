@@ -7,6 +7,12 @@ import pytz
 
 app = Flask(__name__)
 
+IST = pytz.timezone("Asia/Kolkata")
+
+def today_ist():
+    """Return today's date in IST (not UTC)."""
+    return datetime.now(IST).date()
+
 BOT_TOKEN = "8206108349:AAH8LQU14rY-0VQ_LqwxFU7dWrNOAoss0LQ"
 CHAT_ID = 7077765572
 bot = Bot(token=BOT_TOKEN)
@@ -19,7 +25,7 @@ last_sent_date = {}
 
 def message_condition():
     start_day = date(2025,9,9)
-    today = date.today()
+    today = today_ist()
 
     days_passed = (today - start_day).days
 
