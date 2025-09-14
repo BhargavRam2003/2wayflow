@@ -14,7 +14,7 @@ bot = Bot(token=BOT_TOKEN)
 
 water_hours = {0:16,1:20}
 
-last_sent_date = None
+last_sent_date = {}
 
 
 def message_condition():
@@ -53,10 +53,12 @@ def message_sender():
     today_date = now.date()
 
     remainder_hour = water_hours.get(condition)
+    if remainder_hour is None:
+        return
     if remainder_hour <= now_hour < remainder_hour +1:
-        if last_sent_date != today_date:
+        if last_sent_date.get(today_date) != condition:
             asyncio.run(bot.send_message(chat_id=CHAT_ID, text=f"⏰ Reminder: {message}"))
-            last_sent_date = today_date
+            last_sent_date[today_date] = condition
 
 
 
