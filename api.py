@@ -24,7 +24,7 @@ last_sent_date = {}
 
 
 def message_condition():
-    start_day = date(2026,1,22)
+    start_day = date(2026,1,25)
     today = today_ist()
 
     days_passed = (today - start_day).days
